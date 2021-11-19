@@ -31,7 +31,9 @@ func Test_Authors(t *testing.T) {
 
 		res := Update("POST", "/authors", author)
 		if res.StatusCode != 200 {
-			t.Error(res.StatusCode)
+			var str string
+			unmarshal(res, &str)
+			t.Fatal(res.StatusCode, str)
 		}
 		unmarshal(res, &response)
 		author.ID = response.ID
@@ -40,7 +42,7 @@ func Test_Authors(t *testing.T) {
 		if !reflect.DeepEqual(author, response) {
 			t.Error("Expected", author, "got", response)
 		}
-		insertedAuthorId = response.ID
+		insertedAuthorId = *response.ID
 	})
 	t.Run("List author works", func(t *testing.T) {
 		var response []models.Author
@@ -54,6 +56,13 @@ func Test_Authors(t *testing.T) {
 		}
 		if response[0].Name != "John Doe" {
 			t.Error(response[0].Name)
+		}
+
+		// unknown query params are errors
+		var errResponse interface{}
+		res = GET("/authors?unknown=true", &errResponse)
+		if res.StatusCode != 400 {
+			t.Error(res.StatusCode, errResponse)
 		}
 
 		res = GET("/authors?name=hello", &response)
@@ -119,7 +128,7 @@ func Test_Authors(t *testing.T) {
 		}
 	})
 	t.Run("Delete author works", func(t *testing.T) {
-		res := DELETE("/authors/"+insertedAuthorId.Hex(), nil)
+		res := DELETE("/authors/" + insertedAuthorId.Hex())
 		if res.StatusCode != 200 {
 			t.Error(res.StatusCode)
 		}
@@ -150,7 +159,7 @@ func GET(path string, response interface{}) *http.Response {
 	return res
 }
 
-func DELETE(path string, response interface{}) *http.Response {
+func DELETE(path string) *http.Response {
 	req, err := http.NewRequest("DELETE", server+path, nil)
 	if err != nil {
 		panic(err)

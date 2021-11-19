@@ -48,7 +48,7 @@ var Routes = []crud.Spec{
 					"title": crud.String().Required().Description("Title of book"),
 					"genre": crud.String().Enum("", "fantasy", "non-fiction", "political").Description("Book genre"),
 				})),
-			}).Required(),
+			}),
 		},
 	},
 	{
@@ -68,7 +68,7 @@ var Routes = []crud.Spec{
 					"title": crud.String().Description("Title of book"),
 					"genre": crud.String().Enum("", "fantasy", "non-fiction", "political").Description("Book genre"),
 				})),
-			}).Required(),
+			}),
 		},
 	},
 	{
