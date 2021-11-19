@@ -42,7 +42,7 @@ func Test_Authors(t *testing.T) {
 		if !reflect.DeepEqual(author, response) {
 			t.Error("Expected", author, "got", response)
 		}
-		insertedAuthorId = *response.ID
+		insertedAuthorId = response.ID
 	})
 	t.Run("List author works", func(t *testing.T) {
 		var response []models.Author

@@ -6,7 +6,7 @@ import (
 )
 
 type Author struct {
-	ID *primitive.ObjectID `json:"id,omitempty" bson:"_id"`
+	ID primitive.ObjectID `json:"id" bson:"_id"`
 
 	// This is the only required field in the spec (see author_routes) so no need for omitempty
 	Name string `json:"name" bson:"name"`

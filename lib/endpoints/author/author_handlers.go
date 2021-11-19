@@ -39,7 +39,7 @@ func CreateAuthor(c *gin.Context) {
 		c.JSON(400, "Bad payload: "+err.Error())
 		return
 	}
-	author.ID = newObject()
+	author.ID = primitive.NewObjectID()
 	now := time.Now()
 	author.Created = &now
 	author.Updated = &now
@@ -60,7 +60,7 @@ func PatchAuthor(c *gin.Context) {
 		return
 	}
 	var err error
-	author.ID, err = fromHex(c.Param("id"))
+	author.ID, err = primitive.ObjectIDFromHex(c.Param("id"))
 	if err != nil {
 		c.JSON(400, "Invalid ID")
 		return
@@ -94,14 +94,4 @@ func DeleteAuthor(c *gin.Context) {
 	}
 
 	c.JSON(200, author)
-}
-
-func newObject() *primitive.ObjectID {
-	obj := primitive.NewObjectID()
-	return &obj
-}
-
-func fromHex(hex string) (*primitive.ObjectID, error) {
-	obj, err := primitive.ObjectIDFromHex(hex)
-	return &obj, err
 }
