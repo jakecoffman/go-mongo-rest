@@ -6,12 +6,17 @@ import (
 	"github.com/wwt/go-mongo-rest/lib/db"
 	"github.com/wwt/go-mongo-rest/lib/endpoints/author"
 	"log"
+	"os"
 )
 
 func main() {
 	log.SetFlags(log.Lshortfile)
 
-	if err := db.Connect(); err != nil {
+	dbName := db.Name
+	if len(os.Args) > 1 {
+		dbName = os.Args[1]
+	}
+	if err := db.Connect(dbName); err != nil {
 		panic(err)
 	}
 

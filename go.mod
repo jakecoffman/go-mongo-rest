@@ -4,7 +4,7 @@ go 1.17
 
 require (
 	github.com/gin-gonic/gin v1.6.3
-	github.com/jakecoffman/crud v1.1.0
+	github.com/jakecoffman/crud v1.1.1-0.20211119014022-7022a867a0d5
 	go.mongodb.org/mongo-driver v1.7.4
 )
 

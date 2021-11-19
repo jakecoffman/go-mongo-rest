@@ -46,9 +46,9 @@ var Routes = []crud.Spec{
 				"born": crud.String().Description("Author's date of birth"),
 				"books": crud.Array().Items(crud.Object(map[string]crud.Field{
 					"title": crud.String().Required().Description("Title of book"),
-					"genre": crud.String().Enum("fantasy", "non-fiction", "political").Description("Book genre"),
+					"genre": crud.String().Enum("", "fantasy", "non-fiction", "political").Description("Book genre"),
 				})),
-			}),
+			}).Required(),
 		},
 	},
 	{
@@ -66,9 +66,9 @@ var Routes = []crud.Spec{
 				"born": crud.String().Description("Author's date of birth"),
 				"books": crud.Array().Items(crud.Object(map[string]crud.Field{
 					"title": crud.String().Description("Title of book"),
-					"genre": crud.String().Enum("fantasy", "non-fiction", "political").Description("Book genre"),
+					"genre": crud.String().Enum("", "fantasy", "non-fiction", "political").Description("Book genre"),
 				})),
-			}),
+			}).Required(),
 		},
 	},
 	{

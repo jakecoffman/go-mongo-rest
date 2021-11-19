@@ -35,7 +35,7 @@ func ListAuthors(c *gin.Context) {
 
 func CreateAuthor(c *gin.Context) {
 	var author models.Author
-	if err := c.ShouldBindJSON(&author); err != nil {
+	if err := c.ShouldBind(&author); err != nil {
 		c.JSON(400, "Bad payload: "+err.Error())
 		return
 	}

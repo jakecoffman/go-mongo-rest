@@ -7,21 +7,23 @@ import (
 	"time"
 )
 
+var Client *mongo.Client
+var Database *mongo.Database
 var Authors *mongo.Collection
 
 const (
-	dbName           = "library"
-	collectionAuthor = "author"
+	Name             = "library"
+	CollectionAuthor = "author"
 )
 
-func Connect() error {
+func Connect(dbName string) (err error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
-	client, err := mongo.Connect(ctx, options.Client().ApplyURI("mongodb://localhost:27017"))
+	Client, err = mongo.Connect(ctx, options.Client().ApplyURI("mongodb://localhost:27017"))
 	if err != nil {
 		return err
 	}
-	db := client.Database(dbName)
-	Authors = db.Collection(collectionAuthor)
+	Database = Client.Database(dbName)
+	Authors = Database.Collection(CollectionAuthor)
 	return nil
 }
