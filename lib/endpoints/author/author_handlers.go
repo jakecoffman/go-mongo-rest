@@ -41,8 +41,8 @@ func CreateAuthor(c *gin.Context) {
 	}
 	author.ID = primitive.NewObjectID()
 	now := time.Now()
-	author.Created = &now
-	author.Updated = &now
+	author.Created = now
+	author.Updated = now
 
 	_, err := db.Authors.InsertOne(c, author)
 	if err != nil {
@@ -65,8 +65,7 @@ func PatchAuthor(c *gin.Context) {
 		c.JSON(400, "Invalid ID")
 		return
 	}
-	now := time.Now()
-	author.Updated = &now
+	author.Updated = time.Now()
 
 	update := bson.D{{"$set", author}}
 	opt := options.FindOneAndUpdate().SetReturnDocument(options.After)

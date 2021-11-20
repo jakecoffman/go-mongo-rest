@@ -14,9 +14,10 @@ type Author struct {
 	// Non-primitives like time.Time must have pointers to be considered "empty"
 	Born *time.Time `json:"born,omitempty" bson:"born,omitempty"`
 
-	// Slices can be null, so this can be "empty"
+	// Slices can be nil, so this can be "empty"
 	Books []Book `json:"books,omitempty" bson:"books,omitempty"`
 
-	Created *time.Time `json:"created,omitempty" bson:"created,omitempty"`
-	Updated *time.Time `json:"updated,omitempty" bson:"updated,omitempty"`
+	// These values are always set by the server, so they're never not set
+	Created time.Time `json:"created" bson:"created"`
+	Updated time.Time `json:"updated" bson:"updated"`
 }

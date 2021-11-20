@@ -87,6 +87,7 @@ func Test_Authors(t *testing.T) {
 				{Title: "Adventure"},
 			},
 		}
+		var response1 models.Author
 		{
 			res := Update("PATCH", "/authors/"+insertedAuthorId.Hex(), &author)
 			if res.StatusCode != 200 {
@@ -95,7 +96,6 @@ func Test_Authors(t *testing.T) {
 				t.Fatal(res.StatusCode, err)
 			}
 
-			var response1 models.Author
 			unmarshal(res, &response1)
 			// verify the patch didn't clear the name
 			if author.Name != response1.Name && response1.Name != "John Doe" {
@@ -120,6 +120,11 @@ func Test_Authors(t *testing.T) {
 			var response2 models.Author
 			unmarshal(res2, &response2)
 			if !reflect.DeepEqual(author.Books, response2.Books) {
+				t.Error(response2.Books)
+			}
+			response1.Books[0].Genre = "fantasy"
+			response1.Updated = response2.Updated
+			if !reflect.DeepEqual(response1, response2) {
 				t.Error(response2.Books)
 			}
 			if author.Books[0].Title != "Adventure" {
