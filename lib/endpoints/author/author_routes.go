@@ -5,7 +5,6 @@ import (
 )
 
 // this must match the Query validation below
-// TODO autogenerate this in the crud library
 type authorQuery struct {
 	Limit int64  `form:"limit" bson:"-"`
 	Skip  int64  `form:"skip" bson:"-"`
