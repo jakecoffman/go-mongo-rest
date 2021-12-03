@@ -30,7 +30,7 @@ var Routes = []crud.Spec{
 				"sort":  crud.String().Default("created").Description("Provide the field to sort by"),
 				"order": crud.Integer().Enum(1, -1).Default(-1).Description("Sort the results ascending (1) or descending (-1)"),
 				"name":  crud.String().Description("Filter by exact author name"),
-			}),
+			}).Unknown(false),
 		},
 	},
 	{
@@ -47,7 +47,7 @@ var Routes = []crud.Spec{
 					"title": crud.String().Required().Description("Title of book"),
 					"genre": crud.String().Enum("", "fantasy", "non-fiction", "political").Description("Book genre"),
 				})),
-			}).Unknown(true),
+			}),
 		},
 	},
 	{
@@ -67,7 +67,7 @@ var Routes = []crud.Spec{
 					"title": crud.String().Description("Title of book"),
 					"genre": crud.String().Enum("", "fantasy", "non-fiction", "political").Description("Book genre"),
 				})),
-			}).Unknown(true),
+			}),
 		},
 	},
 	{
